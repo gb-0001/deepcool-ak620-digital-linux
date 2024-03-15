@@ -4,13 +4,13 @@ import psutil
 
 VENDOR_ID = 0x3633  # DeepCool's Vendor ID
 PRODUCT_ID = 0x0002  # AK620's Product ID
-INTERVAL = 2
+INTERVAL = 5
 
 def get_bar_value(input_value):
     return (input_value - 1) // 10 + 1
 
 def get_data(value=0,mode='util'):
-    base_data=[16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    base_data=[16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     numbers = [int(char) for char in str(value)]
     base_data[2]=get_bar_value(value)
     if  mode =='util':
@@ -37,11 +37,14 @@ def get_data(value=0,mode='util'):
     return base_data
 
 def get_temperature():
-    temp = round(psutil.sensors_temperatures()['nct6687'][0].current)
-    return get_data(value=temp,mode='temp')
+    core_temps = psutil.sensors_temperatures()['coretemp']
+    temp = round(sum([temp.current for temp in core_temps]) / len(core_temps))
+    return get_data(value=temp, mode='temp')
+
 def get_utils():
     utils= round(psutil.cpu_percent())
     return get_data(value=utils,mode='util')
+
 try:
     h = hid.device()
     h.open(VENDOR_ID, PRODUCT_ID)
