@@ -4,7 +4,7 @@ import psutil
 
 VENDOR_ID = 0x3633  # DeepCool's Vendor ID
 PRODUCT_ID = 0x0002  # AK620's Product ID
-INTERVAL = 5
+INTERVAL = 6
 
 def get_bar_value(input_value):
     return (input_value - 1) // 10 + 1
