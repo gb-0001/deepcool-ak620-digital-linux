@@ -1,6 +1,6 @@
-# AK620 Digital Air Cooler Monitor on Linux
+# AK620 Digital Air Cooler Monitor on Linux PROXMOX VE 8
 
-This project enables monitoring of temperature and CPU utilization on DeepCool's AK620 digital air cooler for Linux systems. The solution has been tested on Ubuntu 23 with a Ryzen 7950X3D CPU. Customization may be required in the temperature section for other CPUs.
+This project enables monitoring of temperature and CPU utilization on DeepCool's AK620 digital air cooler for Linux systems. The solution has been tested on PROXMOX VE 8 with a INTEL 14900K CPU. Customization may be required in the temperature section for other CPUs.
 
 ## Dependencies
 
