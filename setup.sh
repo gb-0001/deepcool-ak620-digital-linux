@@ -14,7 +14,9 @@ apt install -y python3-pip
 source ~/venv/bin/activate
 
 # Installer les paquets Python nÃ©cessaires
-pip install hid psutil
+pip install hidapi
+
+pip install psutil
 
 # Modifier les fichiers de service
 sed -i 's|ExecStart=.*|ExecStart= /root/venv/bin/python /usr/bin/deepcool-ak620-digital.py|' /lib/systemd/system/deepcool-ak620-digital.service
